@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="User Authentication">
+  <meta name="author" content="">
+
+  <title>Static Rewards Calculator</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+  <style>
+  .table > tbody > tr:first-child > td {
+    border: none;
+    vertical-align: middle;
+  }
+  .table > tbody > tr.return > td {
+    font-weight: bold;
+  }
+  p > em {
+    font-size: 0.95em;
+  }
+  .bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+    border-left-color: #777;
+  }
+  .input-group-addon {
+    background-color: transparent;
+  }
+  input::placeholder {
+    color: black;
+    opacity: 1;
+  }
+  </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <nav class="navbar navbar-default sticky-top " role="navigation">
+      <div class="container-fluid">
+
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <p class="navbar-brand">
+          <a href="/"><img src="https://d33wubrfki0l68.cloudfront.net/e93197a1b6a85d79bd3df754f330703816889a6a/5a659/images/nav-logo.png" height=16 style="padding-right:10px;"><b>This is the hosting site's navbar.</b></a>
+        </p>
+      </div>
+
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <!--where our other templates will insert-->
+    {{{body}}}
+
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+  <script>
+    var yourNavInput = document.getElementById('yourNavAmount'),
+        yourRewardsSpan = document.getElementById('yourRewards'),
+        yourPercentRewardsSpan = document.getElementById('yourPercentRewards');
+
+    yourNavInput.onchange = function() {
+      var result = parseFloat(yourNavInput.value);
+      if (isNaN(result)) {
+        yourRewardsSpan.innerHTML = '0';
+        yourPercentRewardsSpan.innerHTML = '0';
+      } else {
+        var yourRewards = result * 1.0 * parseFloat(document.getElementById('totalRewards').innerHTML.replace(/,/g, '')) / parseFloat(document.getElementById('totalStaking').innerHTML.replace(/,/g, ''));
+        yourRewardsSpan.innerHTML = yourRewards.toFixed(2);
+        yourPercentRewards = yourRewards / result * 100;
+        yourPercentRewardsSpan.innerHTML = yourPercentRewards.toFixed(2);
+      }    
+  };
+  </script>
+
+</body>
+</html>
