@@ -1,18 +1,11 @@
 var express = require('express'),
   request = require('request'),
   exphbs = require('express-handlebars'),
-  logger = require('morgan'),
-  cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
-  session = require('express-session'),
   Handlebars = require('handlebars'),
   HandlebarsIntl = require('handlebars-intl'),
-  MomentHandler = require('handlebars.moment'),
-  _ = require('underscore');
-  
-const config = require('./config.js');
-
+  MomentHandler = require('handlebars.moment');
 
 HandlebarsIntl.registerWith(Handlebars);
 MomentHandler.registerHelpers(Handlebars);
@@ -46,35 +39,9 @@ var app = express();
 
 
 app.use(express.static('public'));
-app.use(logger('combined'));
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(
-  session({
-    secret: config.sessionSecret,
-    saveUninitialized: true,
-    resave: true
-  })
-);
-
-
-app.use(function(req, res, next) {
-  var err = req.session.error,
-    msg = req.session.notice,
-    success = req.session.success;
-
-  delete req.session.error;
-  delete req.session.success;
-  delete req.session.notice;
-
-  if (err) res.locals.error = err;
-  if (msg) res.locals.notice = msg;
-  if (success) res.locals.success = success;
-
-  next();
-});
 
 app.locals.totalSupply = 0;
 app.locals.stakingCoins = 0;
@@ -86,8 +53,8 @@ var yourRewards = 0;
 var yourPercentRewards = 0;
 var inflation = 0;
 
-var totalBlocks = 2 * 60 * 24 * 365;
-var totalRewards = 2 * totalBlocks;
+const totalBlocks = 2 * 60 * 24 * 365;
+const totalRewards = 2 * totalBlocks;
 
 function getNetworkStats() {
   var urlNAV = 'https://chainz.cryptoid.info/nav/api.dws?q=summary';
@@ -102,23 +69,9 @@ function getNetworkStats() {
       }
     }
   );
-  var urlStakes =
+  const urlStakes =
     'https://chainz.cryptoid.info/explorer/index.stakes.dws?coin=nav';
-  var urlData = 'https://chainz.cryptoid.info/explorer/index.data.dws?coin=nav';
-  var urlProposals =
-    'https://navexplorer.com/api/community-fund/proposal';
-  request(
-    {
-      url:'https://www.navexplorer.com/api/block/height',
-      json: true
-    },
-    function(error,response,body) {
-      if(!error) {
-        blockheight = body;
-        blockperiod = body % 20160;
-      }
-    }
-  );
+  
   request(
     {
       url: urlStakes,
@@ -158,7 +111,7 @@ app.get('/', function(req, res) {
   });
 });
 
-var port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 app.listen(port);
 
 console.log('Listening on `localhost:' + port + '`!');
