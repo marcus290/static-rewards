@@ -1,6 +1,6 @@
 {
-  "name": "cfund",
-  "repository": "github:aguycalled/cfund-discussion",
+  "name": "static-rewards",
+  "repository": "github:marcus290/static-rewards",
   "main": "index.js",
   "scripts": {
 	"start": "node index.js",
