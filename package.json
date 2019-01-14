@@ -3,6 +3,7 @@
   "repository": "github:aguycalled/cfund-discussion",
   "main": "index.js",
   "scripts": {
+	"start": "node index.js",
     "dev": "node index.js development",
     "prod": "node index.js"
   },
