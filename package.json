@@ -3,25 +3,17 @@
   "repository": "github:marcus290/static-rewards",
   "main": "index.js",
   "scripts": {
-	"start": "node index.js",
-    "dev": "node index.js development",
-    "prod": "node index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "async": "^2.6.1",
-    "bcryptjs": "^0.7.12",
-    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
-    "express-recaptcha": "^4.0.3",
     "express-session": "^1.15.6",
     "handlebars-helpers": "^0.10.0",
     "handlebars-intl": "^1.1.2",
     "handlebars.moment": "^1.0.4",
     "method-override": "^3.0.0",
-    "morgan": "^1.9.1",
-    "q": "^1.0.1",
-    "request": "^2.88.0",
-    "underscore": "^1.9.1"
+    "request": "^2.88.0"
   }
 }
