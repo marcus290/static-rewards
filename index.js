@@ -80,8 +80,10 @@ function getNetworkStats() {
     function(error, response, body) {
       if (!error && response.statusCode === 200) {
         var total = 0;
+        var amount = 0;
         for (var s in body.stakes) {
-          total += parseFloat(body.stakes[s].amount);
+          amount = parseFloat(body.stakes[s].amount);
+          total += isNaN(amount) ? 0 : amount;
         }
         totalStaking = total;
       }
@@ -103,11 +105,11 @@ app.get('/', function(req, res) {
   yourPercentRewards = yourRewards / yourNAV * 100;
   inflation = (totalRewards + totalBlocks * 0.5) / totalNAV * 100;
   res.render('home', {
-    totalNAV: (Math.round(totalNAV)).toLocaleString('en-US'),
-    totalStaking: (Math.round(totalStaking)).toLocaleString('en-US'),
-    yourRewards: (yourRewards).toLocaleString('en-US'),
-    yourPercentRewards: yourPercentRewards.toFixed(2),
-    inflation: inflation.toFixed(2)
+    totalNAV: (isNaN(totalNAV) ? '-' : (Math.round(totalNAV)).toLocaleString('en-US')),
+    totalStaking: (isNaN(totalStaking) ? '-' : (Math.round(totalStaking)).toLocaleString('en-US')),
+    yourRewards: (isNaN(yourRewards) ? '-' : (yourRewards).toLocaleString('en-US')),
+    yourPercentRewards: (isNaN(yourPercentRewards) ? '-' : yourPercentRewards.toFixed(2)),
+    inflation: (isNaN(inflation) ? '-' : inflation.toFixed(2))
   });
 });
 
