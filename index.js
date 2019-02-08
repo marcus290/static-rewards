@@ -1,4 +1,5 @@
-var express = require('express'),
+var path = require('path'),
+  express = require('express'),
   request = require('request'),
   exphbs = require('express-handlebars'),
   bodyParser = require('body-parser'),
@@ -99,6 +100,7 @@ var hbs = exphbs.create({
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, "views"));
 
 app.get('/', function(req, res) {
   yourRewards = yourNAV * totalRewards / totalStaking;
