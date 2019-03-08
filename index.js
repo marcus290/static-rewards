@@ -58,35 +58,17 @@ const totalBlocks = 2 * 60 * 24 * 365;
 const totalRewards = 2 * totalBlocks;
 
 function getNetworkStats() {
-  var urlNAV = 'https://chainz.cryptoid.info/nav/api.dws?q=summary';
-  request(
-    {
-      url: urlNAV,
-      json: true
-    },
-    function(error,response,body) {
-      if(!error) {
-        totalNAV = parseFloat(body['nav']['supply']);
-      }
-    }
-  );
-  const urlStakes =
-    'https://chainz.cryptoid.info/explorer/index.stakes.dws?coin=nav';
+  const url = 'https://api.navexplorer.com/api/staking/report';
   
   request(
     {
-      url: urlStakes,
+      url: url,
       json: true
     },
     function(error, response, body) {
       if (!error && response.statusCode === 200) {
-        var total = 0;
-        var amount = 0;
-        for (var s in body.stakes) {
-          amount = parseFloat(body.stakes[s].amount);
-          total += isNaN(amount) ? 0 : amount;
-        }
-        totalStaking = total;
+        totalNAV = parseFloat(body['totalSupply']);
+        totalStaking = parseFloat(body['staking']);
       }
     }
   );
